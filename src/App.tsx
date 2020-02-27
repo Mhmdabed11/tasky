@@ -1,10 +1,12 @@
 import React from "react";
+import NavBar from "./components/NavBar/NavBar";
+import { Box } from "./tasky-ui";
 
 const App = () => {
     return (
-        <div>
-            <h1>Tasky</h1>
-        </div>
+        <Box>
+            <NavBar />
+        </Box>
     );
 };
 
