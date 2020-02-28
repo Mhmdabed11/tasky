@@ -8,14 +8,14 @@ import theme from "./theme";
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>
-        {/* <Global
+        <Global
             styles={css({
                 body: {
                     margin: 0,
                     bg: "primary"
                 }
             })}
-        /> */}
+        />
         <App />
     </ThemeProvider>,
     document.getElementById("tasky")
