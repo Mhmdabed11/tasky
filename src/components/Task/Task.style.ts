@@ -12,5 +12,7 @@ export const TaskIcon = styled.img`
 
 export const Container = styled(Box)`
     transform: ${props =>
-        props.rotate ? `${props.dndTransform} rotate(4deg) !important` : ""};
+        props.rotate === "true"
+            ? `${props.dndTransform} rotate(4deg) !important`
+            : ""};
 `;

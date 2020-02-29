@@ -53,7 +53,7 @@ export default function Main() {
     // handle on Drag end
     const onDragEnd = useCallback(
         (result: DropResult) => {
-            const { destination, source, draggableId } = result;
+            const { destination, source, draggableId, type } = result;
 
             if (!destination) {
                 return;
@@ -62,6 +62,18 @@ export default function Main() {
                 source.droppableId === destination.droppableId &&
                 source.index === destination.index
             ) {
+                return;
+            }
+
+            if (type === "column") {
+                const newColumnsOrder = Array.from(data.columnOrder);
+                newColumnsOrder.splice(source.index, 1);
+                newColumnsOrder.splice(destination.index, 0, draggableId);
+                const newState = {
+                    ...data,
+                    columnOrder: newColumnsOrder
+                };
+                setData(newState);
                 return;
             }
 

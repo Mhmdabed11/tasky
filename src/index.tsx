@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { ThemeProvider } from "emotion-theming";
@@ -16,7 +16,7 @@ const getTheme = (mode: string) =>
     });
 
 const Tasky = () => {
-    const [mode, setMode] = useState(modes[0]);
+    const [mode, setMode] = useState(localStorage.getItem("mode") || modes[0]);
     const theme = getTheme(mode);
 
     // toggle Theme
@@ -24,6 +24,10 @@ const Tasky = () => {
         if (mode === modes[0]) {
             setMode(modes[1]);
         } else setMode(modes[0]);
+    }, [mode]);
+
+    useEffect(() => {
+        localStorage.setItem("mode", mode);
     }, [mode]);
 
     return (

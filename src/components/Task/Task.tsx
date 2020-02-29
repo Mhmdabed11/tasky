@@ -16,7 +16,7 @@ type Props = {
     index: number;
 };
 
-export default function Task({ task, index }: Props) {
+function Task({ task, index }: Props) {
     return (
         <Draggable draggableId={task.id} index={index}>
             {(
@@ -33,7 +33,7 @@ export default function Task({ task, index }: Props) {
                         }
                         p={2}
                         mb={2}
-                        rotate={snapshot.isDragging}
+                        rotate={snapshot.isDragging.toString()}
                         dndTransform={provided.draggableProps.style.transform}
                     >
                         <Box display="flex">
@@ -53,3 +53,5 @@ export default function Task({ task, index }: Props) {
         </Draggable>
     );
 }
+
+export default React.memo(Task);
