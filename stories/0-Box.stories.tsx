@@ -11,13 +11,13 @@ export default {
 
 export const Text = () => (
     <Box
-        border={text("Border", "solid")}
-        borderColor="rgba(0,0,0,0.2)"
         p={number("Padding", 3)}
         onClick={action("clicked")}
         bg={text("Background Color", "#f9f9f9")}
         color={text("Text Color", "black")}
+        border={text("Border", "solid")}
         borderWidth={number("Border Width", 1)}
+        borderColor={text("Border Color", "rgba(0,0,0,0.2")}
     >
         {text("Label", "This is a box with text")}
     </Box>
