@@ -1,22 +1,25 @@
-const colors: object = {
-    text: "#000",
-    background: "#fff",
-    primary: "#fff",
-    secondary: "#00a",
-    highlight: "#ededff",
-    accent: "#c0f",
-    gray: "#eee",
-    lightgray: "#fafafa",
-    midgray: "#777",
+type Colors = {
+    text: string;
+    background: string;
+    primary: string;
+    columnBackground: string;
+    rowBackground: string;
+    modes: object;
+};
+
+const colors: Colors = {
+    text: "#484848",
+    background: "#ffffff",
+    primary: "#0076bb",
+    columnBackground: "rgb(235, 236, 240)",
+    rowBackground: "white",
     modes: {
         dark: {
-            text: "#fff",
-            background: "#000",
-            primary: "#0cf",
-            secondary: "#f0e",
-            gray: "#222",
-            lightgray: "#111",
-            highlight: "#001119"
+            text: "#ffffff",
+            background: "#000000",
+            primary: "#0076bb",
+            columnBackground: "#15202b",
+            rowBackground: "black"
         }
     }
 };
@@ -29,6 +32,7 @@ export default {
         monospace: "Menlo, monospace"
     },
     fontSizes: [12, 14, 16, 18, 24, 32, 48, 64, 72],
+    fontWeights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
     lineHeights: {
         body: 1.75,
         heading: 1.25

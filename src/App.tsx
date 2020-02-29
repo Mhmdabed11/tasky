@@ -1,11 +1,17 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import NavBar from "./components/NavBar/NavBar";
 import { Box } from "./tasky-ui";
+import Main from "./views/Main";
 
-const App = () => {
+type AppProps = {
+    toggleTheme: MouseEventHandler;
+};
+
+const App = ({ toggleTheme }: AppProps) => {
     return (
         <Box>
-            <NavBar />
+            <NavBar toggleTheme={toggleTheme} />
+            <Main />
         </Box>
     );
 };
