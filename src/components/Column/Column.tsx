@@ -18,7 +18,7 @@ export default function Column({ tasks, column }: Props) {
     return (
         <Box bg="columnBackground" width={250} mx={2}>
             <Box px={2} py={3} color="text" fontsize={3} fontWeight={5}>
-                Things To Do
+                {column.title}
             </Box>
             <Droppable droppableId={column.id}>
                 {(
@@ -29,7 +29,7 @@ export default function Column({ tasks, column }: Props) {
                         <Box
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            bg={snapshot.isDraggingOver && "primary"}
+                            bg={snapshot.isDraggingOver && "draggingBackground"}
                             minHeight={50}
                             p={2}
                         >

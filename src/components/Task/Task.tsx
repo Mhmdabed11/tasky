@@ -5,7 +5,7 @@ import {
     DraggableProvided,
     DraggableStateSnapshot
 } from "react-beautiful-dnd";
-import { TaskIcon } from "./Task.style";
+import { TaskIcon, Container } from "./Task.style";
 
 type Task = {
     id: string;
@@ -24,16 +24,17 @@ export default function Task({ task, index }: Props) {
                 snapshot: DraggableStateSnapshot
             ) => {
                 return (
-                    <Box
+                    <Container
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                         bg={
                             snapshot.isDragging ? "lightgreen" : "rowBackground"
                         }
-                        border={snapshot.isDragging && "1px solid"}
                         p={2}
                         mb={2}
+                        rotate={snapshot.isDragging}
+                        dndTransform={provided.draggableProps.style.transform}
                     >
                         <Box display="flex">
                             <Box mr={2}>
@@ -46,7 +47,7 @@ export default function Task({ task, index }: Props) {
                                 "Sometimes Life is scary and dark"
                             </Box>
                         </Box>
-                    </Box>
+                    </Container>
                 );
             }}
         </Draggable>

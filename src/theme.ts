@@ -5,6 +5,7 @@ type Colors = {
     columnBackground: string;
     rowBackground: string;
     modes: object;
+    draggingBackground: string;
 };
 
 const colors: Colors = {
@@ -13,13 +14,15 @@ const colors: Colors = {
     primary: "#0076bb",
     columnBackground: "rgb(235, 236, 240)",
     rowBackground: "white",
+    draggingBackground: "tomato",
     modes: {
         dark: {
             text: "#ffffff",
             background: "#000000",
             primary: "#0076bb",
             columnBackground: "#15202b",
-            rowBackground: "black"
+            rowBackground: "black",
+            draggingBackground: "white"
         }
     }
 };

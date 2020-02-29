@@ -30,17 +30,17 @@ const initialData: InitialData = {
     columns: {
         "column-1": {
             id: "column-1",
-            title: "To do",
+            title: "To Do",
             taskIds: ["task-1", "task-2", "task-3", "task-4"]
         },
         "column-2": {
             id: "column-2",
-            title: "To do",
+            title: "In Progress",
             taskIds: []
         },
         "column-3": {
             id: "column-3",
-            title: "To do",
+            title: "Done",
             taskIds: []
         }
     },

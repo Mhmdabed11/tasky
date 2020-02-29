@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Box } from "../../tasky-ui";
 
 export const TaskIcon = styled.img`
     height: 40px;
@@ -7,4 +8,9 @@ export const TaskIcon = styled.img`
     max-width: 40px;
     min-width: 40px;
     border-radius: 50%;
+`;
+
+export const Container = styled(Box)`
+    transform: ${props =>
+        props.rotate ? `${props.dndTransform} rotate(4deg) !important` : ""};
 `;
