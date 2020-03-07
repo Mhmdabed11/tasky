@@ -27,13 +27,13 @@ function Column({ tasks, column, index }: Props) {
                         ref={provided.innerRef}
                         bg="columnBackground"
                         width={250}
-                        mx={2}
+                        mx={1}
                     >
                         <Box
                             px={2}
                             py={3}
                             color="text"
-                            fontsize={3}
+                            fontSize={1}
                             fontWeight={5}
                             {...provided.dragHandleProps}
                         >

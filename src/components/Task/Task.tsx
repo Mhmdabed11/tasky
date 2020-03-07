@@ -29,7 +29,9 @@ function Task({ task, index }: Props) {
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                         bg={
-                            snapshot.isDragging ? "lightgreen" : "rowBackground"
+                            snapshot.isDragging
+                                ? "rowDraggingBackground"
+                                : "rowBackground"
                         }
                         p={2}
                         mb={2}
@@ -43,8 +45,15 @@ function Task({ task, index }: Props) {
                                     alt={task.content}
                                 />
                             </Box>
-                            <Box fontSize={1} color="text">
-                                "Sometimes Life is scary and dark"
+                            <Box
+                                fontSize={1}
+                                color={
+                                    snapshot.isDragging
+                                        ? "rowDraggingColor"
+                                        : "text"
+                                }
+                            >
+                                "{task.content}"
                             </Box>
                         </Box>
                     </Container>

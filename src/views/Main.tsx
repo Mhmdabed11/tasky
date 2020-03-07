@@ -1,6 +1,4 @@
 import React, { useCallback } from "react";
-import { Box } from "../tasky-ui";
-import Column from "../components/Column/Column";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { TaskType } from "../Types/Task";
 import { ColType } from "../Types/Col";

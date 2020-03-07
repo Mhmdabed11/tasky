@@ -6,6 +6,8 @@ type Colors = {
     rowBackground: string;
     modes: object;
     draggingBackground: string;
+    rowDraggingBackground: string;
+    rowDraggingColor: string;
 };
 
 const colors: Colors = {
@@ -15,14 +17,18 @@ const colors: Colors = {
     columnBackground: "rgb(235, 236, 240)",
     rowBackground: "white",
     draggingBackground: "tomato",
+    rowDraggingBackground: "lightgreen",
+    rowDraggingColor: "#484848",
     modes: {
         dark: {
-            text: "#ffffff",
-            background: "#000000",
-            primary: "#0076bb",
-            columnBackground: "#15202b",
-            rowBackground: "black",
-            draggingBackground: "white"
+            text: "#869fac",
+            background: "#253137",
+            primary: "#36464f",
+            columnBackground: "#36464f",
+            rowBackground: "#253137",
+            draggingBackground: "#253137",
+            rowDraggingBackground: "white",
+            rowDraggingColor: "#253137"
         }
     }
 };

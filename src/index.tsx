@@ -37,7 +37,9 @@ const Tasky = () => {
                     body: {
                         margin: 0,
                         bg: "background",
-                        fontFamily: "sans-serif"
+                        // fontFamily: "sans-serif"
+                        fontFamily:
+                            "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif"
                     }
                 })}
             />
