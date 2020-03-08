@@ -20,6 +20,7 @@
         "@styled-system/css": "^5.1.5",
         "@types/lodash.get": "^4.4.6",
         "@types/lodash.merge": "^4.6.6",
+        "axios": "^0.19.2",
         "emotion": "^10.0.27",
         "emotion-theming": "^10.0.27",
         "lodash.get": "^4.4.2",

@@ -27,11 +27,12 @@ function Column({ tasks, column, index }: Props) {
                         ref={provided.innerRef}
                         bg="columnBackground"
                         width={250}
+                        py={2}
                         mx={1}
                     >
                         <Box
                             px={2}
-                            py={3}
+                            py={1}
                             color="text"
                             fontSize={1}
                             fontWeight={5}

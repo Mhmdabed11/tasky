@@ -1,8 +1,14 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { TaskType } from "../Types/Task";
 import { ColType } from "../Types/Col";
 import TasksList from "../components/TasksList/TasksList";
+import { UserService as UserAPI } from "../services/UserService";
+import { ColumnService as ColumnAPI } from "../services/ColumnService";
+import { useLoadingDispatch } from "../lib/loadingContext";
+
+const UserService = UserAPI();
+const ColumnService = ColumnAPI();
 
 type Columns = {
     [key: string]: ColType;
@@ -19,34 +25,22 @@ type InitialData = {
 };
 
 const initialData: InitialData = {
-    tasks: {
-        "task-1": { id: "task-1", content: "Take out garbage" },
-        "task-2": { id: "task-2", content: "Watch my favorite show" },
-        "task-3": { id: "task-3", content: "Charge my phone" },
-        "task-4": { id: "task-4", content: "Cook dinner" }
-    },
-    columns: {
-        "column-1": {
-            id: "column-1",
-            title: "To Do",
-            taskIds: ["task-1", "task-2", "task-3", "task-4"]
-        },
-        "column-2": {
-            id: "column-2",
-            title: "In Progress",
-            taskIds: []
-        },
-        "column-3": {
-            id: "column-3",
-            title: "Done",
-            taskIds: []
-        }
-    },
-    columnOrder: ["column-1", "column-2", "column-3"]
+    tasks: {},
+    columns: {},
+    columnOrder: []
 };
 
 export default function Main() {
-    const [data, setData] = React.useState<InitialData>(initialData);
+    const [data, setData] = useState<InitialData>(initialData);
+    const dispatch = useLoadingDispatch();
+
+    useEffect(() => {
+        dispatch({ type: "TOGGLE_LOADING" });
+        UserService.getTasksHierarchy()
+            .then(data => setData(data))
+            .catch(err => console.log(err))
+            .then(() => dispatch({ type: "TOGGLE_LOADING" }));
+    }, []);
 
     // handle on Drag end
     const onDragEnd = useCallback(
@@ -64,9 +58,21 @@ export default function Main() {
             }
 
             if (type === "column") {
+                let originalColumnsOrder = data.columnOrder;
                 const newColumnsOrder = Array.from(data.columnOrder);
                 newColumnsOrder.splice(source.index, 1);
                 newColumnsOrder.splice(destination.index, 0, draggableId);
+                dispatch({ type: "TOGGLE_LOADING" });
+                UserService.updateUser({ columnsOrder: newColumnsOrder })
+                    .then(res => console.log(res))
+                    .catch(err =>
+                        setData(curr => ({
+                            ...curr,
+                            columnOrder: originalColumnsOrder
+                        }))
+                    )
+                    .then(() => dispatch({ type: "TOGGLE_LOADING" }));
+
                 const newState = {
                     ...data,
                     columnOrder: newColumnsOrder
@@ -84,6 +90,13 @@ export default function Main() {
                 );
                 newColumnTasksIds.splice(source.index, 1);
                 newColumnTasksIds.splice(destination.index, 0, draggableId);
+                dispatch({ type: "TOGGLE_LOADING" });
+                ColumnService.updateColumn(sourceColumn.id, {
+                    tasks: newColumnTasksIds
+                })
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err))
+                    .then(() => dispatch({ type: "TOGGLE_LOADING" }));
 
                 const newState = {
                     ...data,
@@ -108,6 +121,20 @@ export default function Main() {
             );
             sourceTaskIds.splice(source.index, 1);
             destinationTaskIds.splice(destination.index, 0, draggableId);
+            (async function update() {
+                dispatch({ type: "TOGGLE_LOADING" });
+                try {
+                    await ColumnService.updateColumn(sourceColumn.id, {
+                        tasks: sourceTaskIds
+                    });
+                    await ColumnService.updateColumn(destinationColumn.id, {
+                        tasks: destinationTaskIds
+                    });
+                    dispatch({ type: "TOGGLE_LOADING" });
+                } catch (err) {
+                    dispatch({ type: "TOGGLE_LOADING" });
+                }
+            })();
 
             const newState = {
                 ...data,
