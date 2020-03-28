@@ -1,13 +1,39 @@
+type ColorObject = {
+    text: string;
+    background: string;
+    primary: string;
+    columnBackground: string;
+    rowBackground: string;
+    draggingBackground: string;
+    rowDraggingBackground: string;
+    rowDraggingColor: string;
+};
+
+type Modes = {
+    dark?: ColorObject;
+};
+
 type Colors = {
     text: string;
     background: string;
     primary: string;
     columnBackground: string;
     rowBackground: string;
-    modes: object;
+    modes: Modes;
     draggingBackground: string;
     rowDraggingBackground: string;
     rowDraggingColor: string;
+};
+
+export type Theme = {
+    initialColorModeName: string;
+    colors: Colors;
+    fonts: object;
+    fontSizes: Array<Number>;
+    fontWeights: Array<Number>;
+    lineHeights: object;
+    space: Array<Number>;
+    styles: object;
 };
 
 const colors: Colors = {
@@ -33,7 +59,7 @@ const colors: Colors = {
     }
 };
 
-export default {
+const theme: Theme = {
     initialColorModeName: "light",
     colors,
     fonts: {
@@ -54,3 +80,5 @@ export default {
         }
     }
 };
+
+export default theme;

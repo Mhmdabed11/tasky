@@ -10,6 +10,7 @@ import {
 import Task from "../Task/Task";
 import { TaskType } from "../../Types/Task";
 import { ColType } from "../../Types/Col";
+import { AddNewCard } from "./Column.style";
 
 type Props = {
     tasks: Array<TaskType>;
@@ -73,16 +74,16 @@ function Column({ tasks, column, index }: Props) {
                                 );
                             }}
                         </Droppable>
-
-                        <Box
+                        <AddNewCard
                             fontSize={1}
+                            m={2}
                             p={2}
                             display="flex"
                             justifyContent="center"
                             color="text"
                         >
                             + Add another card
-                        </Box>
+                        </AddNewCard>
                     </Box>
                 );
             }}

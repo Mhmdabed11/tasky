@@ -3,6 +3,7 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { TaskType } from "../Types/Task";
 import { ColType } from "../Types/Col";
 import TasksList from "../components/TasksList/TasksList";
+import FullLoadingShimmer from "../components/FullLoadingShimmer/FullLoadingShimmer";
 import { UserService as UserAPI } from "../services/UserService";
 import { ColumnService as ColumnAPI } from "../services/ColumnService";
 import { useLoadingDispatch } from "../lib/loadingContext";
@@ -32,13 +33,17 @@ const initialData: InitialData = {
 
 export default function Main() {
     const [data, setData] = useState<InitialData>(initialData);
+    const [initialFetching, setInitialFetching] = useState<boolean>(true);
+    const [hide, setHide] = useState<boolean>(false);
+
     const dispatch = useLoadingDispatch();
     useEffect(() => {
         dispatch({ type: "TOGGLE_LOADING" });
         UserService.getTasksHierarchy()
             .then(data => setData(data))
             .catch(err => console.log(err))
-            .then(() => dispatch({ type: "TOGGLE_LOADING" }));
+            .then(() => dispatch({ type: "TOGGLE_LOADING" }))
+            .then(() => setHide(true));
     }, []);
 
     // handle on Drag end
@@ -63,7 +68,6 @@ export default function Main() {
                 newColumnsOrder.splice(destination.index, 0, draggableId);
                 dispatch({ type: "TOGGLE_LOADING" });
                 UserService.updateUser({ columnsOrder: newColumnsOrder })
-                    .then(res => console.log(res))
                     .catch(err =>
                         setData(curr => ({
                             ...curr,
@@ -158,6 +162,12 @@ export default function Main() {
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <TasksList data={data} />
+            {initialFetching ? (
+                <FullLoadingShimmer
+                    hide={hide}
+                    onAnimationEnd={() => setInitialFetching(false)}
+                />
+            ) : null}
         </DragDropContext>
     );
 }

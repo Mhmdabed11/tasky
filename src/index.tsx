@@ -7,6 +7,7 @@ import css from "@styled-system/css";
 import baseTheme from "./theme";
 import merge from "lodash.merge";
 import get from "lodash.get";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const modes: Array<string> = ["light", "dark"];
 
@@ -40,13 +41,14 @@ const Tasky = () => {
                     body: {
                         margin: 0,
                         bg: "background",
-                        // fontFamily: "sans-serif"
                         fontFamily:
                             "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif"
                     }
                 })}
             />
-            <App toggleTheme={toggleTheme} mode={mode} />
+            <SkeletonTheme color="#f6f6f6" highlightColor="gray">
+                <App toggleTheme={toggleTheme} mode={mode} />
+            </SkeletonTheme>
         </ThemeProvider>
     );
 };
