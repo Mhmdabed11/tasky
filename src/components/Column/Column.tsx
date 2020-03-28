@@ -29,6 +29,11 @@ function Column({ tasks, column, index }: Props) {
                         width={250}
                         py={2}
                         mx={1}
+                        display="inline-block"
+                        style={{
+                            verticalAlign: "top",
+                            ...provided.draggableProps.style
+                        }}
                     >
                         <Box
                             px={2}
@@ -68,6 +73,16 @@ function Column({ tasks, column, index }: Props) {
                                 );
                             }}
                         </Droppable>
+
+                        <Box
+                            fontSize={1}
+                            p={2}
+                            display="flex"
+                            justifyContent="center"
+                            color="text"
+                        >
+                            + Add another card
+                        </Box>
                     </Box>
                 );
             }}

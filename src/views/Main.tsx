@@ -33,7 +33,6 @@ const initialData: InitialData = {
 export default function Main() {
     const [data, setData] = useState<InitialData>(initialData);
     const dispatch = useLoadingDispatch();
-
     useEffect(() => {
         dispatch({ type: "TOGGLE_LOADING" });
         UserService.getTasksHierarchy()

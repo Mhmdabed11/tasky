@@ -20,11 +20,14 @@ const Tasky = () => {
     const theme = getTheme(mode);
 
     // toggle Theme
-    const toggleTheme = React.useCallback(() => {
-        if (mode === modes[0]) {
-            setMode(modes[1]);
-        } else setMode(modes[0]);
-    }, [mode]);
+    const toggleTheme = React.useCallback(
+        e => {
+            if (mode === modes[0]) {
+                setMode(modes[1]);
+            } else setMode(modes[0]);
+        },
+        [mode]
+    );
 
     useEffect(() => {
         localStorage.setItem("mode", mode);
@@ -43,7 +46,7 @@ const Tasky = () => {
                     }
                 })}
             />
-            <App toggleTheme={toggleTheme} />
+            <App toggleTheme={toggleTheme} mode={mode} />
         </ThemeProvider>
     );
 };

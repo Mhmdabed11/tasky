@@ -32,12 +32,7 @@ export default function TasksList({ data }: Data) {
         >
             {(provided: DroppableProvided) => {
                 return (
-                    <Box
-                        display="flex"
-                        mt={2}
-                        {...provided}
-                        ref={provided.innerRef}
-                    >
+                    <Box mt={2} {...provided} ref={provided.innerRef}>
                         {data.columnOrder.map((col, index) => {
                             const column = data.columns[col];
                             const tasks = column.taskIds.map(

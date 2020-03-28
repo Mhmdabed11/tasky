@@ -6,13 +6,14 @@ import { LoadingProvider } from "./lib/loadingContext";
 
 type AppProps = {
     toggleTheme: MouseEventHandler;
+    mode: string;
 };
 
-const App = ({ toggleTheme }: AppProps) => {
+const App = ({ toggleTheme, mode }: AppProps) => {
     return (
         <LoadingProvider>
             <Box>
-                <NavBar toggleTheme={toggleTheme} />
+                <NavBar toggleTheme={toggleTheme} mode={mode} />
                 <Main />
             </Box>
         </LoadingProvider>

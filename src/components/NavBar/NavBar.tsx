@@ -2,12 +2,14 @@ import React, { MouseEventHandler } from "react";
 import { Box } from "../../tasky-ui";
 import { Nav } from "./NavBar.style";
 import { useLoadingState } from "../../lib/loadingContext";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 type NavBarProps = {
     toggleTheme: MouseEventHandler;
+    mode: string;
 };
 
-export default function NavBar({ toggleTheme }: NavBarProps) {
+export default function NavBar({ toggleTheme, mode }: NavBarProps) {
     const { loading } = useLoadingState();
     return (
         <Nav>
@@ -37,7 +39,10 @@ export default function NavBar({ toggleTheme }: NavBarProps) {
                 </Box>
                 <Box color="text">{loading ? "Saving ..." : "Saved"}</Box>
                 <Box>
-                    <button onClick={toggleTheme}>Dark Mode</button>
+                    <ToggleSwitch
+                        checked={mode === "dark"}
+                        toggle={toggleTheme}
+                    />
                 </Box>
             </Box>
         </Nav>

@@ -6,11 +6,8 @@ import {
     DraggableStateSnapshot
 } from "react-beautiful-dnd";
 import { TaskIcon, Container } from "./Task.style";
+import { TaskType as Task } from "../../Types/Task";
 
-type Task = {
-    id: string;
-    content: string;
-};
 type Props = {
     task: Task;
     index: number;
@@ -53,7 +50,8 @@ function Task({ task, index }: Props) {
                                         : "text"
                                 }
                             >
-                                "{task.content}"
+                                <Box fontWeight={5}>{task.content}</Box>
+                                <Box fontSize={0}> {task.description}</Box>
                             </Box>
                         </Box>
                     </Container>
