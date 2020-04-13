@@ -1,7 +1,7 @@
-import React from "react";
-import { Box } from "../../tasky-ui";
-import Skeleton from "react-loading-skeleton";
-import TaskShimmer from "./TaskShimmer";
+import React from 'react';
+import { Box } from '../../tasky-ui';
+import Skeleton from 'react-loading-skeleton';
+import TaskShimmer from './TaskShimmer';
 
 function Column() {
     return (
@@ -12,7 +12,7 @@ function Column() {
             mx={1}
             display="inline-block"
             style={{
-                verticalAlign: "top"
+                verticalAlign: 'top',
             }}
         >
             <Box px={2} py={1} color="text" fontSize={1} fontWeight={5}>

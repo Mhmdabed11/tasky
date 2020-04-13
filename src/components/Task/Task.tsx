@@ -1,12 +1,8 @@
-import React from "react";
-import { Box } from "../../tasky-ui";
-import {
-    Draggable,
-    DraggableProvided,
-    DraggableStateSnapshot
-} from "react-beautiful-dnd";
-import { TaskIcon, Container } from "./Task.style";
-import { TaskType as Task } from "../../Types/Task";
+import React from 'react';
+import { Box } from '../../tasky-ui';
+import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import { TaskIcon, Container } from './Task.style';
+import { TaskType as Task } from '../../Types/Task';
 
 type Props = {
     task: Task;
@@ -16,20 +12,13 @@ type Props = {
 function Task({ task, index }: Props) {
     return (
         <Draggable draggableId={task.id} index={index}>
-            {(
-                provided: DraggableProvided,
-                snapshot: DraggableStateSnapshot
-            ) => {
+            {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => {
                 return (
                     <Container
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
-                        bg={
-                            snapshot.isDragging
-                                ? "rowDraggingBackground"
-                                : "rowBackground"
-                        }
+                        bg={snapshot.isDragging ? 'rowDraggingBackground' : 'rowBackground'}
                         p={2}
                         mb={2}
                         rotate={snapshot.isDragging.toString()}
@@ -42,14 +31,7 @@ function Task({ task, index }: Props) {
                                     alt={task.content}
                                 />
                             </Box>
-                            <Box
-                                fontSize={1}
-                                color={
-                                    snapshot.isDragging
-                                        ? "rowDraggingColor"
-                                        : "text"
-                                }
-                            >
+                            <Box fontSize={1} color={snapshot.isDragging ? 'rowDraggingColor' : 'text'}>
                                 <Box fontWeight={5}>{task.content}</Box>
                                 <Box fontSize={0}> {task.description}</Box>
                             </Box>

@@ -1,59 +1,58 @@
-/* eslint-disable import/newline-after-import */
-/* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
-const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackMerge = require('webpack-merge');
-const presetsConfig = require("./build-utils/loadPresets");
+const presetsConfig = require('./build-utils/loadPresets');
 const modeConfig = env => require(`./build-utils/webpack.${env}`)(env);
 
-
-module.exports = ({ mode = "production", presets = [] }) => webpackMerge({
-    entry: "./src/index.tsx",
-    devtool: "inline-source-map",
-    output: {
-        path: path.join(__dirname, "/dist"),
-        filename: "bundle.js"
-    },
-    mode,
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
+module.exports = ({ mode = 'production', presets = [] }) =>
+    webpackMerge(
+        {
+            entry: './src/index.tsx',
+            devtool: 'inline-source-map',
+            output: {
+                path: path.join(__dirname, '/dist'),
+                filename: 'bundle.js',
             },
-            {
-                test: /\.ts(x?)$/,
-                exclude: /node_modules/,
-                use: [
+            mode,
+            module: {
+                rules: [
                     {
-                        loader: "ts-loader"
-                    }
-                ]
+                        test: /\.tsx?$/,
+                        exclude: /node_modules/,
+                        use: {
+                            loader: 'babel-loader',
+                        },
+                    },
+                    {
+                        test: /\.ts(x?)$/,
+                        exclude: /node_modules/,
+                        use: [
+                            {
+                                loader: 'ts-loader',
+                            },
+                        ],
+                    },
+                    {
+                        enforce: 'pre',
+                        test: /\.js$/,
+                        loader: 'source-map-loader',
+                    },
+                ],
             },
-            {
-                enforce: "pre",
-                test: /\.js$/,
-                loader: "source-map-loader"
-            }
-        ]
-    },
 
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "./src/index.html"
-        }),
-        new webpack.ProgressPlugin()
-    ],
-    resolve: {
-        extensions: [".js", ".json", ".ts", ".tsx"]
-    }
-},
+            plugins: [
+                new HtmlWebpackPlugin({
+                    template: './src/index.html',
+                }),
+                new webpack.ProgressPlugin(),
+            ],
+            resolve: {
+                extensions: ['.js', '.json', '.ts', '.tsx'],
+            },
+        },
 
-    modeConfig(mode),
-    presetsConfig({ mode, presets })
-);
+        modeConfig(mode),
+        presetsConfig({ mode, presets }),
+    );

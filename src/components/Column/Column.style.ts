@@ -1,6 +1,6 @@
-import { Theme } from "./../../theme";
-import styled from "@emotion/styled";
-import { Box } from "../../tasky-ui";
+import { Theme } from './../../theme';
+import styled from '@emotion/styled';
+import { Box } from '../../tasky-ui';
 
 type Props = {
     theme: Theme;

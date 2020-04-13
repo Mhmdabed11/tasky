@@ -1,6 +1,6 @@
-import React from "react";
-import Skeleton from "react-loading-skeleton";
-import { Box } from "../../tasky-ui";
+import React from 'react';
+import Skeleton from 'react-loading-skeleton';
+import { Box } from '../../tasky-ui';
 
 export default function TaskShimmer() {
     return (

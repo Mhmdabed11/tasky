@@ -1,13 +1,13 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
-const BASE_URL: string = "http://localhost:4001/api/";
+const BASE_URL = 'http://localhost:4001/api/';
 
 const apiClient: AxiosInstance = axios.create({
     baseURL: BASE_URL,
     headers: {
         Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZjQwNzBlOWMxNGVkMDMwNDQyMSIsImlhdCI6MTU4MzY3MzE1MiwiZXhwIjoxNTkyMzEzMTUyfQ.hFcV_eyawkth2O6eH4ydglQIN8R9VfTVzClIxdMv-nc"
-    }
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZjQwNzBlOWMxNGVkMDMwNDQyMSIsImlhdCI6MTU4MzY3MzE1MiwiZXhwIjoxNTkyMzEzMTUyfQ.hFcV_eyawkth2O6eH4ydglQIN8R9VfTVzClIxdMv-nc',
+    },
 });
 
 export const request = (config: object) => {

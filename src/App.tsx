@@ -1,8 +1,8 @@
-import React, { MouseEventHandler } from "react";
-import NavBar from "./components/NavBar/NavBar";
-import { Box } from "./tasky-ui";
-import Main from "./views/Main";
-import { LoadingProvider } from "./lib/loadingContext";
+import React, { MouseEventHandler } from 'react';
+import NavBar from './components/NavBar/NavBar';
+import { Box } from './tasky-ui';
+import Main from './views/Main';
+import { LoadingProvider } from './lib/loadingContext';
 
 type AppProps = {
     toggleTheme: MouseEventHandler;

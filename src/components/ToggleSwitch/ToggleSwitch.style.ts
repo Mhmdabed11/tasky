@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const Container = styled.label`
     position: relative;
@@ -24,7 +24,7 @@ export const Slider = styled.span`
 
     &:before {
         position: absolute;
-        content: "";
+        content: '';
         height: 25px;
         width: 25px;
         background-color: darkgray;

@@ -44,7 +44,7 @@ export default function Main() {
             .catch(err => console.log(err))
             .then(() => dispatch({ type: "TOGGLE_LOADING" }))
             .then(() => setHide(true));
-    }, []);
+    }, [dispatch]);
 
     // handle on Drag end
     const onDragEnd = useCallback(
@@ -62,7 +62,7 @@ export default function Main() {
             }
 
             if (type === "column") {
-                let originalColumnsOrder = data.columnOrder;
+                const originalColumnsOrder = data.columnOrder;
                 const newColumnsOrder = Array.from(data.columnOrder);
                 newColumnsOrder.splice(source.index, 1);
                 newColumnsOrder.splice(destination.index, 0, draggableId);
@@ -88,7 +88,7 @@ export default function Main() {
             const destinationColumn = data.columns[destination.droppableId];
 
             if (sourceColumn.id === destinationColumn.id) {
-                let newColumnTasksIds = Array.from(
+                const newColumnTasksIds = Array.from(
                     data.columns[sourceColumn.id].taskIds
                 );
                 newColumnTasksIds.splice(source.index, 1);
@@ -156,7 +156,7 @@ export default function Main() {
 
             setData(newState);
         },
-        [data]
+        [data, dispatch]
     );
 
     return (
