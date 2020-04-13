@@ -4,8 +4,12 @@
     "description": "A task manager application",
     "main": "index.js",
     "scripts": {
-        "start": "webpack-dev-server --mode development --hot",
-        "build": "webpack --mode production",
+        "webpack-dev-server": "webpack-dev-server",
+        "webpack": "webpack",
+        "dev": "npm run webpack-dev-server -- --env.mode development --watch --hot",
+        "dev:analyze": "npm run dev -- --env.presets analyze",
+        "prod": "npm run webpack -- --env.mode production",
+        "prod:analyze": "npm run prod -- --env.presets analyze",
         "test": "echo \"Error: no test specified\" && exit 1",
         "precommit": "NODE_ENV=production lint-staged",
         "storybook": "start-storybook -p 6006",
@@ -68,7 +72,9 @@
         "ts-loader": "^6.2.1",
         "typescript": "^3.8.2",
         "webpack": "^4.41.6",
+        "webpack-bundle-analyzer": "^3.6.1",
         "webpack-cli": "^3.3.11",
-        "webpack-dev-server": "^3.10.3"
+        "webpack-dev-server": "^3.10.3",
+        "webpack-merge": "^4.2.2"
     }
 }

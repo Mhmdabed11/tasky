@@ -1,14 +1,22 @@
+/* eslint-disable import/newline-after-import */
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpackMerge = require('webpack-merge');
+const presetsConfig = require("./build-utils/loadPresets");
+const modeConfig = env => require(`./build-utils/webpack.${env}`)(env);
 
-module.exports = {
+
+module.exports = ({ mode = "production", presets = [] }) => webpackMerge({
     entry: "./src/index.tsx",
     devtool: "inline-source-map",
     output: {
         path: path.join(__dirname, "/dist"),
         filename: "bundle.js"
     },
-
+    mode,
     module: {
         rules: [
             {
@@ -38,12 +46,14 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/index.html"
-        })
+        }),
+        new webpack.ProgressPlugin()
     ],
     resolve: {
         extensions: [".js", ".json", ".ts", ".tsx"]
-    },
-    devServer: {
-        port: 3000
     }
-};
+},
+
+    modeConfig(mode),
+    presetsConfig({ mode, presets })
+);
