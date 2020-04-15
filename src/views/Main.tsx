@@ -36,6 +36,7 @@ export default function Main() {
     const [data, setData] = useState<InitialData>(initialData);
     const [initialFetching, setInitialFetching] = useState<boolean>(true);
     const [hide, setHide] = useState<boolean>(false);
+    const [show, setShow] = useState(false);
 
     const dispatch = useLoadingDispatch();
     useEffect(() => {
@@ -157,7 +158,17 @@ export default function Main() {
             {initialFetching ? (
                 <FullLoadingShimmer hide={hide} onAnimationEnd={() => setInitialFetching(false)} />
             ) : null}
-            <Modal>
+            <button
+                onClick={() => {
+                    setShow(curr => !curr);
+                    setTimeout(() => {
+                        setShow(false);
+                    }, 3000);
+                }}
+            >
+                Show
+            </button>
+            <Modal visible={show}>
                 <div>Hello</div>
             </Modal>
         </DragDropContext>
