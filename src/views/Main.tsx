@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { TaskType } from "../Types/Task";
-import { ColType } from "../Types/Col";
-import TasksList from "../components/TasksList/TasksList";
-import FullLoadingShimmer from "../components/FullLoadingShimmer/FullLoadingShimmer";
-import { UserService as UserAPI } from "../services/UserService";
-import { ColumnService as ColumnAPI } from "../services/ColumnService";
-import { useLoadingDispatch } from "../lib/loadingContext";
+import React, { useCallback, useEffect, useState } from 'react';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { TaskType } from '../Types/Task';
+import { ColType } from '../Types/Col';
+import TasksList from '../components/TasksList/TasksList';
+import FullLoadingShimmer from '../components/FullLoadingShimmer/FullLoadingShimmer';
+import { UserService as UserAPI } from '../services/UserService';
+import { ColumnService as ColumnAPI } from '../services/ColumnService';
+import { useLoadingDispatch } from '../lib/loadingContext';
+import Modal from '../tasky-ui/Modal';
 
 const UserService = UserAPI();
 const ColumnService = ColumnAPI();
@@ -28,7 +29,7 @@ type InitialData = {
 const initialData: InitialData = {
     tasks: {},
     columns: {},
-    columnOrder: []
+    columnOrder: [],
 };
 
 export default function Main() {
@@ -38,11 +39,11 @@ export default function Main() {
 
     const dispatch = useLoadingDispatch();
     useEffect(() => {
-        dispatch({ type: "TOGGLE_LOADING" });
+        dispatch({ type: 'TOGGLE_LOADING' });
         UserService.getTasksHierarchy()
             .then(data => setData(data))
             .catch(err => console.log(err))
-            .then(() => dispatch({ type: "TOGGLE_LOADING" }))
+            .then(() => dispatch({ type: 'TOGGLE_LOADING' }))
             .then(() => setHide(true));
     }, [dispatch]);
 
@@ -54,31 +55,28 @@ export default function Main() {
             if (!destination) {
                 return;
             }
-            if (
-                source.droppableId === destination.droppableId &&
-                source.index === destination.index
-            ) {
+            if (source.droppableId === destination.droppableId && source.index === destination.index) {
                 return;
             }
 
-            if (type === "column") {
+            if (type === 'column') {
                 const originalColumnsOrder = data.columnOrder;
                 const newColumnsOrder = Array.from(data.columnOrder);
                 newColumnsOrder.splice(source.index, 1);
                 newColumnsOrder.splice(destination.index, 0, draggableId);
-                dispatch({ type: "TOGGLE_LOADING" });
+                dispatch({ type: 'TOGGLE_LOADING' });
                 UserService.updateUser({ columnsOrder: newColumnsOrder })
                     .catch(err =>
                         setData(curr => ({
                             ...curr,
-                            columnOrder: originalColumnsOrder
-                        }))
+                            columnOrder: originalColumnsOrder,
+                        })),
                     )
-                    .then(() => dispatch({ type: "TOGGLE_LOADING" }));
+                    .then(() => dispatch({ type: 'TOGGLE_LOADING' }));
 
                 const newState = {
                     ...data,
-                    columnOrder: newColumnsOrder
+                    columnOrder: newColumnsOrder,
                 };
                 setData(newState);
                 return;
@@ -88,18 +86,16 @@ export default function Main() {
             const destinationColumn = data.columns[destination.droppableId];
 
             if (sourceColumn.id === destinationColumn.id) {
-                const newColumnTasksIds = Array.from(
-                    data.columns[sourceColumn.id].taskIds
-                );
+                const newColumnTasksIds = Array.from(data.columns[sourceColumn.id].taskIds);
                 newColumnTasksIds.splice(source.index, 1);
                 newColumnTasksIds.splice(destination.index, 0, draggableId);
-                dispatch({ type: "TOGGLE_LOADING" });
+                dispatch({ type: 'TOGGLE_LOADING' });
                 ColumnService.updateColumn(sourceColumn.id, {
-                    tasks: newColumnTasksIds
+                    tasks: newColumnTasksIds,
                 })
                     .then(res => console.log(res))
                     .catch(err => console.log(err))
-                    .then(() => dispatch({ type: "TOGGLE_LOADING" }));
+                    .then(() => dispatch({ type: 'TOGGLE_LOADING' }));
 
                 const newState = {
                     ...data,
@@ -107,35 +103,31 @@ export default function Main() {
                         ...data.columns,
                         [sourceColumn.id]: {
                             ...data.columns[sourceColumn.id],
-                            taskIds: newColumnTasksIds
-                        }
-                    }
+                            taskIds: newColumnTasksIds,
+                        },
+                    },
                 };
 
                 setData(newState);
                 return;
             }
 
-            const sourceTaskIds = Array.from(
-                data.columns[source.droppableId].taskIds
-            );
-            const destinationTaskIds = Array.from(
-                data.columns[destination.droppableId].taskIds
-            );
+            const sourceTaskIds = Array.from(data.columns[source.droppableId].taskIds);
+            const destinationTaskIds = Array.from(data.columns[destination.droppableId].taskIds);
             sourceTaskIds.splice(source.index, 1);
             destinationTaskIds.splice(destination.index, 0, draggableId);
             (async function update() {
-                dispatch({ type: "TOGGLE_LOADING" });
+                dispatch({ type: 'TOGGLE_LOADING' });
                 try {
                     await ColumnService.updateColumn(sourceColumn.id, {
-                        tasks: sourceTaskIds
+                        tasks: sourceTaskIds,
                     });
                     await ColumnService.updateColumn(destinationColumn.id, {
-                        tasks: destinationTaskIds
+                        tasks: destinationTaskIds,
                     });
-                    dispatch({ type: "TOGGLE_LOADING" });
+                    dispatch({ type: 'TOGGLE_LOADING' });
                 } catch (err) {
-                    dispatch({ type: "TOGGLE_LOADING" });
+                    dispatch({ type: 'TOGGLE_LOADING' });
                 }
             })();
 
@@ -145,29 +137,29 @@ export default function Main() {
                     ...data.columns,
                     [source.droppableId]: {
                         ...data.columns[source.droppableId],
-                        taskIds: sourceTaskIds
+                        taskIds: sourceTaskIds,
                     },
                     [destination.droppableId]: {
                         ...data.columns[destination.droppableId],
-                        taskIds: destinationTaskIds
-                    }
-                }
+                        taskIds: destinationTaskIds,
+                    },
+                },
             };
 
             setData(newState);
         },
-        [data, dispatch]
+        [data, dispatch],
     );
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <TasksList data={data} />
             {initialFetching ? (
-                <FullLoadingShimmer
-                    hide={hide}
-                    onAnimationEnd={() => setInitialFetching(false)}
-                />
+                <FullLoadingShimmer hide={hide} onAnimationEnd={() => setInitialFetching(false)} />
             ) : null}
+            <Modal>
+                <div>Hello</div>
+            </Modal>
         </DragDropContext>
     );
 }
