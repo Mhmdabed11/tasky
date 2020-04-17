@@ -7,7 +7,8 @@ import FullLoadingShimmer from '../components/FullLoadingShimmer/FullLoadingShim
 import { UserService as UserAPI } from '../services/UserService';
 import { ColumnService as ColumnAPI } from '../services/ColumnService';
 import { useLoadingDispatch } from '../lib/loadingContext';
-import Modal from '../tasky-ui/Modal';
+import { Modal } from '../tasky-ui';
+import { Button } from '../tasky-ui';
 
 const UserService = UserAPI();
 const ColumnService = ColumnAPI();
@@ -158,17 +159,16 @@ export default function Main() {
             {initialFetching ? (
                 <FullLoadingShimmer hide={hide} onAnimationEnd={() => setInitialFetching(false)} />
             ) : null}
+            <Button>Hello</Button>
             <button
                 onClick={() => {
+                    console.log('hey');
                     setShow(curr => !curr);
-                    setTimeout(() => {
-                        setShow(false);
-                    }, 3000);
                 }}
             >
                 Show
             </button>
-            <Modal visible={show}>
+            <Modal visible={show} title="Add new card">
                 <div>Hello</div>
             </Modal>
         </DragDropContext>
