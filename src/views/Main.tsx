@@ -159,7 +159,7 @@ export default function Main() {
             {initialFetching ? (
                 <FullLoadingShimmer hide={hide} onAnimationEnd={() => setInitialFetching(false)} />
             ) : null}
-            <Button>Hello</Button>
+
             <button
                 onClick={() => {
                     console.log('hey');

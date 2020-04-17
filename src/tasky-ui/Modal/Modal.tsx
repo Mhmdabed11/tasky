@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, ReactChild } from 'react';
 import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
-import { Box } from '../index';
+import { Box, Button } from '../index';
 import { keyframes } from '@emotion/core';
 
 const fadeIn = keyframes`
@@ -97,8 +97,8 @@ export default function Modal({
                     </ModalBody>
                     <ModalFooter>
                         <Box display="flex" justifyContent="flex-end" p={3}>
-                            <Box mr={2}>{cancelText}</Box>
-                            <Box>{okText}</Box>
+                            <Button mr={2}>{cancelText}</Button>
+                            <Button>{okText}</Button>
                         </Box>
                     </ModalFooter>
                 </ModalContainer>

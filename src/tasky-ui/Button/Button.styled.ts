@@ -1,21 +1,22 @@
 import { variant } from 'styled-system';
 import styled from '@emotion/styled';
-import { space, color } from 'styled-system';
+import { space, color, border } from 'styled-system';
 
 export const Button = styled('button')(
     {
-        border: 'none',
+        cursor: 'pointer',
     },
     space,
     color,
+    border,
     variant({
         variants: {
             primary: {
-                color: 'white',
-                bg: 'primary',
+                color: 'buttonTextColor',
+                bg: 'buttonBackgroundColor',
             },
             secondary: {
-                color: 'black',
+                color: 'buttonTextColor',
                 bg: 'secondary',
             },
         },

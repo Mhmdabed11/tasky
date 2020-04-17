@@ -7,6 +7,8 @@ type ColorObject = {
     draggingBackground: string;
     rowDraggingBackground: string;
     rowDraggingColor: string;
+    buttonTextColor: string;
+    buttonBackgroundColor: string;
 };
 
 type Modes = {
@@ -23,6 +25,8 @@ type Colors = {
     draggingBackground: string;
     rowDraggingBackground: string;
     rowDraggingColor: string;
+    buttonTextColor: string;
+    buttonBackgroundColor: string;
 };
 
 export type Theme = {
@@ -45,6 +49,8 @@ const colors: Colors = {
     draggingBackground: 'tomato',
     rowDraggingBackground: 'lightgreen',
     rowDraggingColor: '#484848',
+    buttonTextColor: 'white',
+    buttonBackgroundColor: '#0076bb',
     modes: {
         dark: {
             text: '#869fac',
@@ -55,6 +61,8 @@ const colors: Colors = {
             draggingBackground: '#253137',
             rowDraggingBackground: 'white',
             rowDraggingColor: '#253137',
+            buttonTextColor: '#b3c3cb',
+            buttonBackgroundColor: 'rgba(255,255,255,0.24)',
         },
     },
 };
